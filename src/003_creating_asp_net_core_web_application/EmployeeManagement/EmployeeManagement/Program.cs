@@ -1,7 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-//app.MapGet("/", () => System.Diagnostics.Process.GetCurrentProcess().ProcessName);
-app.MapGet("/", () => System.Reflection.Assembly.GetEntryAssembly().FullName);
+app.MapGet("/", () => System.Diagnostics.Process.GetCurrentProcess().ProcessName);
+//app.MapGet("/", () => System.Reflection.Assembly.GetEntryAssembly().FullName);
 
 app.Run();

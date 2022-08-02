@@ -40,3 +40,7 @@ Kestrel is cross-platform web server for ASP.NET Core. It is included as an inte
 ASP.NET Core application initially starts as a Console application.
 
 .NET 6 removed `Startup.cs` file. Put necessary contents inside `Program.cs` file.
+
+## `launchSettings.json`
+
+This file is only needed in local machine. It is not needed to publish this file to production environments. Settings that you want to be publish need to be stored in `appsettings.json` file.
