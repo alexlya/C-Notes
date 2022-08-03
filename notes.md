@@ -44,3 +44,49 @@ ASP.NET Core application initially starts as a Console application.
 ## `launchSettings.json`
 
 This file is only needed in local machine. It is not needed to publish this file to production environments. Settings that you want to be publish need to be stored in `appsettings.json` file.
+
+## `appsettings.json`
+
+In previous versions of ASP.NET configurations were stored in `web.config`. In ASP.NET Core configuration info can come from different sources, such as:
+
+- Files (appsettings.json, appsettings.{Environment}.json)
+- User secrets
+- Environmental variables
+- Command-line arguments
+
+or even our own configuration source.
+
+To access configuration information use `IConfiguration` service. It knows how to read config info from all configuration sources.
+
+To access `IConfiguration` .NET 6 with top-level statements you have to write this code:
+
+```c#
+var builder = WebApplication.CreateBuilder(args);
+var provider = builder.Services.BuildServiceProvider();
+var configuration = provider.GetRequiredService<IConfiguration>();
+var MyKey = configuration.GetValue<string>("MyKey");
+```
+
+Settings in `appsettings.{Environment}.json` will override settings in `appsettings.json` file.
+
+Environment variables get stored in `launchSettings.json` under
+
+```json
+"profiles": {
+    "{name of profile}": {
+        "environmentVariables": {
+            "MyKey": "this is my key from Environment Variables"
+        }
+    }
+}
+```
+
+`IConfugration` reads config info from the following sources in the following order (top to bottom):
+
+1. Files: appsettings.json
+2. Files: appsettings.{Environment}.json
+3. User secrets
+4. Environment variables
+5. Command-line arguments
+
+So, config info that is read later overrides config info that was read previously. For example, config settings in user secrets override settings in `appsettings.json`.
