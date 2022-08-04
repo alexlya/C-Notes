@@ -43,7 +43,7 @@ ASP.NET Core application initially starts as a Console application.
 
 ## `launchSettings.json`
 
-This file is only needed in local machine. It is not needed to publish this file to production environments. Settings that you want to be publish need to be stored in `appsettings.json` file.
+This file is only needed in local machine. It is not needed to publish this file to production environments. Settings that you want to be publish need to be stored in `appsettings.json` file. Environmental Variables are configured here.
 
 ## `appsettings.json`
 
@@ -58,13 +58,11 @@ or even our own configuration source.
 
 To access configuration information use `IConfiguration` service. It knows how to read config info from all configuration sources.
 
-To access `IConfiguration` .NET 6 with top-level statements you have to write this code:
+To access `IConfiguration` .NET 6 with top-level statements just write this code:
 
 ```c#
 var builder = WebApplication.CreateBuilder(args);
-var provider = builder.Services.BuildServiceProvider();
-var configuration = provider.GetRequiredService<IConfiguration>();
-var MyKey = configuration.GetValue<string>("MyKey");
+var MyKey = builder.Configuration.GetValue<string>("MyKey");
 ```
 
 Settings in `appsettings.{Environment}.json` will override settings in `appsettings.json` file.
@@ -90,3 +88,20 @@ Environment variables get stored in `launchSettings.json` under
 5. Command-line arguments
 
 So, config info that is read later overrides config info that was read previously. For example, config settings in user secrets override settings in `appsettings.json`.
+
+## Middleware in ASP.NET Core
+
+In ASP.NET _middleware_ is a piece of software that can handle an HTTP request or response.
+
+For example, we can have a piece of middleware component that can handle authentication, another one to handle errors, another one to server static files (css, js, images, etc.). It is these middleware component that we use to set up a request processing pipeline. It is this pipeline that determines how our request is processed. Request pipeline is configured as part of the application startup by `Configure` method that is present in startup class.
+
+Middleware components are executed in the order that they are added to the pipeline. Care should be taken to add middleware in the right order, otherwise application may not function as expected.
+
+You can add as many or as few middleware components to the pipeline.
+
+Middleware component:
+- may simply pass request to the next middleware component in pipeline
+- may do _some_ processing and then pass request to the next component in pipeline
+- may handle the request and short-circuit the pipeline
+- may process outgoing response
+- are executed in the order they are added to the pipeline

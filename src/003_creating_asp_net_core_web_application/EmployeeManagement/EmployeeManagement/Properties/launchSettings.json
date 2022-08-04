@@ -22,7 +22,7 @@
 			"launchBrowser": true,
 			"environmentVariables": {
 				"ASPNETCORE_ENVIRONMENT": "Development",
-				"MyKey": "this is my key from Environmental Variables"
+				//"MyKey": "this is my key from Environmental Variables 2"
 			}
 		},
 		//"WSL": {
