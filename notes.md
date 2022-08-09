@@ -95,7 +95,11 @@ In ASP.NET _middleware_ is a piece of software that can handle an HTTP request o
 
 For example, we can have a piece of middleware component that can handle authentication, another one to handle errors, another one to server static files (css, js, images, etc.). It is these middleware component that we use to set up a request processing pipeline. It is this pipeline that determines how our request is processed. Request pipeline is configured as part of the application startup by `Configure` method that is present in startup class.
 
-Middleware components are executed in the order that they are added to the pipeline. Care should be taken to add middleware in the right order, otherwise application may not function as expected.
+Middleware components are executed in the order that they are added to the pipeline. **Care should be taken to add middleware in the right order, otherwise application may not function as expected**.
+
+[Link to documentation on pipeline order](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-6.0#middleware-order).
+
+![Middleware-pipeline order](./resources/images/middleware-pipeline.svg)
 
 You can add as many or as few middleware components to the pipeline.
 
