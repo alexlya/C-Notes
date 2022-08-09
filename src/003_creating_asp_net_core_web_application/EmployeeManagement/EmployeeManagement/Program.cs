@@ -7,13 +7,12 @@ WebApplication app = builder.Build();
 
 // Middleware pipeline.
 
-// Middleware #1.
 if (app.Environment.IsDevelopment())
-	// Middleware #2.
+	// Middleware #1.
 	app.UseDeveloperExceptionPage();
 
-// Middleware #3.
+// Middleware #2.
 app.MapGet("/", () => System.Diagnostics.Process.GetCurrentProcess().ProcessName + " | " + MyKey);
 
-// Middleware #4.
+// Middleware #3.
 app.Run();
