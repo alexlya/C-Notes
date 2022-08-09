@@ -9,10 +9,11 @@ WebApplication app = builder.Build();
 
 // Middleware #1.
 if (app.Environment.IsDevelopment())
+	// Middleware #2.
 	app.UseDeveloperExceptionPage();
 
-// Middleware #2.
+// Middleware #3.
 app.MapGet("/", () => System.Diagnostics.Process.GetCurrentProcess().ProcessName + " | " + MyKey);
 
-// Middleware #3.
+// Middleware #4.
 app.Run();
